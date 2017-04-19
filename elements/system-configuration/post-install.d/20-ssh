@@ -9,6 +9,8 @@ set -o xtrace
 yum -y install openssh-server
 
 echo "Installing the SSH test key to the environment."
+sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+echo jcc2017 | passwd --stdin  root
 mkdir -p /root/.ssh
 install -b --mode 0400 /tmp/in_target.d/id_rsa /root/.ssh/
 cat /tmp/in_target.d/id_rsa.pub >> /root/.ssh/authorized_keys
